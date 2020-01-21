@@ -35,7 +35,18 @@ h6,
 
 .avatar {
   border-radius: 100%;
+  max-height: 20vh;
   text-align: center;
+}
+
+@media (min-width: 992px) {
+  .avatar {
+    max-height: none;
+  }
+}
+
+.qrcode {
+  max-width: 100%;
 }
 
 [class*="fa-"] {

@@ -38,9 +38,15 @@ h6,
 
 .avatar {
   border-radius: 100%;
-  // margin: auto;
-  // max-width: 60%;
+  max-height: 20vh;
   text-align: center;
+  @media (min-width: 992px) {
+    max-height: none;
+  }
+}
+
+.qrcode {
+  max-width: 100%;
 }
 
 [class*="fa-"] {

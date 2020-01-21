@@ -53,6 +53,12 @@ h6,
   color: $color;
 }
 
+.contatos {
+  a {
+    color: inherit;
+  }
+}
+
 .destaque {
   color: $color;
   font-weight: 500;

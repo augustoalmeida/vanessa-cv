@@ -53,6 +53,10 @@ h6,
   color: #d2527f;
 }
 
+.contatos a {
+  color: inherit;
+}
+
 .destaque {
   color: #d2527f;
   font-weight: 500;

@@ -1,9 +1,21 @@
+html {
+  background-color: #eedfde;
+}
+
 body {
   background-color: #eedfde;
   display: -ms-grid;
   display: grid;
   font-family: "Roboto", sans-serif;
   height: 100vh;
+}
+
+.background {
+  background-color: #fff;
+  margin-bottom: 80px;
+  margin-top: 100px;
+  min-height: 98vh;
+  padding: 60px;
 }
 
 h1,
@@ -19,22 +31,15 @@ h5,
 h6,
 .h6 {
   font-weight: 900;
-  margin: 3rem 0;
 }
 
-img {
-  max-width: 100%;
+.avatar {
+  border-radius: 100%;
+  text-align: center;
 }
 
 [class*="fa-"] {
   color: #d2527f;
-}
-
-.background {
-  background-color: #fff;
-  margin-bottom: 80px;
-  margin-top: 100px;
-  padding: 60px;
 }
 
 .destaque {
@@ -58,7 +63,7 @@ img {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .competencias {
@@ -68,7 +73,7 @@ img {
 }
 
 .competencias li {
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
 .competencias .progress {
@@ -537,7 +542,7 @@ img {
 .timeline {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: "ano local" "ano cargo" "ano atividades";
+      grid-template-areas: "ano local" "ano cargo" "ano entregas" "ano atividades";
   -ms-grid-columns: 200px auto;
       grid-template-columns: 200px auto;
 }
@@ -546,7 +551,7 @@ img {
   display: block;
   font-weight: 500;
   -ms-grid-row: 1;
-  -ms-grid-row-span: 3;
+  -ms-grid-row-span: 4;
   -ms-grid-column: 1;
   grid-area: ano;
   margin: 0 30px 0 0;
@@ -594,12 +599,19 @@ img {
   grid-area: cargo;
 }
 
-.timeline .atividades {
+.timeline .entregas {
   -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  grid-area: entregas;
+  font-size: 120%;
+  font-weight: 500;
+}
+
+.timeline .atividades {
+  -ms-grid-row: 4;
   -ms-grid-column: 2;
   grid-area: atividades;
   list-style: none;
-  padding-bottom: 15px;
   padding-left: 0;
 }
 

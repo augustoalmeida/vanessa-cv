@@ -1,15 +1,14 @@
+$background: #eedfde;
 $color: #d2527f;
 $gray: #dee2e6;
 
 html {
-  background-color: #eedfde;
+  background-color: $background;
 }
 
 body {
-  background-color: #eedfde;
-  display: grid;
+  background-color: $background;
   font-family: "Roboto", sans-serif;
-  height: 100vh;
 }
 
 .background {
@@ -33,7 +32,6 @@ h5,
 h6,
 .h6 {
   font-weight: 900;
-  // margin: 3rem 0;
 }
 
 .avatar {
@@ -73,7 +71,6 @@ h6,
     display: flex;
     flex-flow: column;
     margin-bottom: 15px;
-    // margin-bottom: 30px;
   }
 }
 
@@ -153,25 +150,24 @@ $half: round($loops / 2);
 }
 
 .timeline {
-  display: grid;
+  display: block;
   grid-template-areas:
     "ano local"
     "ano cargo"
     "ano entregas"
     "ano atividades";
   grid-template-columns: 200px auto;
+  padding-left: 40px;
+  position: relative;
   .ano {
     display: block;
     font-weight: 500;
     grid-area: ano;
-    margin: 0 30px 0 0;
-    padding-right: 50px;
+    margin: 0 0 15px 0;
     position: relative;
-    text-align: right;
     &::before {
       background-color: $color;
       bottom: 0;
-      content: "";
       height: 100%;
       position: absolute;
       right: 11px;
@@ -182,7 +178,6 @@ $half: round($loops / 2);
       background-color: #fff;
       border: 2px solid $color;
       border-radius: 50%;
-      content: "";
       height: 1.5em;
       position: absolute;
       right: 0;
@@ -208,10 +203,47 @@ $half: round($loops / 2);
   .atividades {
     grid-area: atividades;
     list-style: none;
-    // padding-bottom: 15px;
     padding-left: 0;
     li {
       margin-bottom: 0.5rem;
+    }
+  }
+  &::before {
+    background-color: $color;
+    bottom: 0;
+    content: "";
+    height: 100%;
+    left: 11px;
+    position: absolute;
+    top: 0;
+    width: 2px;
+  }
+  &::after {
+    background-color: #fff;
+    border: 2px solid $color;
+    border-radius: 50%;
+    content: "";
+    height: 1.5em;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1.5em;
+  }
+  // versão tablet
+  @media (min-width: 576px) {
+    display: grid;
+    .ano {
+      margin: 0 30px 0 0;
+      padding-right: 50px;
+      text-align: right;
+      &::before,
+      &::after {
+        content: "";
+      }
+    }
+    &::before,
+    &::after {
+      content: none;
     }
   }
 }
@@ -219,8 +251,9 @@ $half: round($loops / 2);
 .escolaridade {
   display: flex;
   justify-content: space-between;
+  flex-flow: column;
   .formacao {
-    display: grid;
+    display: block;
     justify-content: space-between;
     grid-template-areas:
       "titulo titulo"
@@ -236,19 +269,18 @@ $half: round($loops / 2);
       font-size: 1.5rem;
       font-weight: 600;
       grid-area: titulo;
-      // line-height: 1;
       margin-bottom: 0;
     }
     .descricao {
       grid-area: descricao;
-      margin-bottom: 40px;
+      margin-bottom: 0;
     }
     .fim,
     .inicio {
+      display: inline-block;
       position: relative;
       &::before {
         background-color: $color;
-        content: "";
         height: 2px;
         left: 15px;
         position: absolute;
@@ -261,7 +293,6 @@ $half: round($loops / 2);
         border: 2px solid $color;
         border-radius: 50%;
         bottom: 100%;
-        content: "";
         height: 1em;
         left: 10px;
         position: absolute;
@@ -272,6 +303,17 @@ $half: round($loops / 2);
     }
     .fim {
       grid-area: fim;
+      &::after {
+        bottom: auto;
+        border: 0;
+        content: " a";
+        height: auto;
+        left: auto;
+        position: static;
+        right: auto;
+        top: auto;
+        width: auto;
+      }
     }
     .inicio {
       grid-area: inicio;
@@ -287,7 +329,6 @@ $half: round($loops / 2);
     &::before {
       background-color: currentColor;
       bottom: 52px;
-      content: "";
       height: 1px;
       left: 0;
       position: absolute;
@@ -297,6 +338,43 @@ $half: round($loops / 2);
     &:last-child {
       flex: 1.25;
       padding-right: 0;
+    }
+  }
+  @media (min-width: 576px) {
+    flex-flow: row;
+    .formacao {
+      display: grid;
+      .descricao {
+        margin-bottom: 40px;
+      }
+      .inicio,
+      .fim {
+        display: block;
+        &::before {
+          content: "";
+        }
+        &::after {
+          content: "";
+          background-color: #fff;
+          border: 2px solid $color;
+          border-radius: 50%;
+          bottom: 100%;
+          height: 1em;
+          left: 10px;
+          position: absolute;
+          right: 10px;
+          top: -20px;
+          width: 1em;
+        }
+      }
+      .inicio {
+        &::after {
+          left: auto;
+        }
+      }
+      &::before {
+        content: "";
+      }
     }
   }
 }

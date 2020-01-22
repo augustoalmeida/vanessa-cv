@@ -255,15 +255,15 @@ $half: round($loops / 2);
   justify-content: space-between;
   flex-flow: column;
   .formacao {
-    display: block;
-    justify-content: space-between;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
     grid-template-areas:
       "titulo titulo"
       "descricao descricao"
       "fim inicio";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr auto;
-    flex: 1;
     padding-right: 30px;
     position: relative;
     .titulo {
@@ -272,10 +272,12 @@ $half: round($loops / 2);
       font-weight: 600;
       grid-area: titulo;
       margin-bottom: 0;
+      width: 100%;
     }
     .descricao {
       grid-area: descricao;
       margin-bottom: 0;
+      width: 100%;
     }
     .fim,
     .inicio {
@@ -305,27 +307,25 @@ $half: round($loops / 2);
     }
     .fim {
       grid-area: fim;
-      &::after {
-        bottom: auto;
-        border: 0;
-        content: " a";
-        height: auto;
-        left: auto;
-        position: static;
-        right: auto;
-        top: auto;
-        width: auto;
-      }
+      order: 1;
     }
     .inicio {
       grid-area: inicio;
-      text-align: right;
       &::before {
         left: 0;
         right: 15px;
       }
       &::after {
+        bottom: auto;
+        border: 0;
+        content: "a";
+        height: auto;
         left: auto;
+        padding: 0 5px;
+        position: static;
+        right: auto;
+        top: auto;
+        width: auto;
       }
     }
     &::before {
@@ -346,6 +346,7 @@ $half: round($loops / 2);
     flex-flow: row;
     .formacao {
       display: grid;
+      justify-content: space-between;
       .descricao {
         margin-bottom: 40px;
       }
@@ -370,6 +371,7 @@ $half: round($loops / 2);
         }
       }
       .inicio {
+        text-align: right;
         &::after {
           left: auto;
         }

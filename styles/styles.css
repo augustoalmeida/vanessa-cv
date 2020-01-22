@@ -685,18 +685,19 @@ h6,
 }
 
 .escolaridade .formacao {
-  display: block;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
       grid-template-areas: "titulo titulo" "descricao descricao" "fim inicio";
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   -ms-grid-rows: auto 1fr auto;
       grid-template-rows: auto 1fr auto;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   padding-right: 30px;
   position: relative;
 }
@@ -710,6 +711,7 @@ h6,
   -ms-grid-column-span: 2;
   grid-area: titulo;
   margin-bottom: 0;
+  width: 100%;
 }
 
 .escolaridade .formacao .descricao {
@@ -718,6 +720,7 @@ h6,
   -ms-grid-column-span: 2;
   grid-area: descricao;
   margin-bottom: 0;
+  width: 100%;
 }
 
 .escolaridade .formacao .fim,
@@ -755,25 +758,15 @@ h6,
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: fim;
-}
-
-.escolaridade .formacao .fim::after {
-  bottom: auto;
-  border: 0;
-  content: " a";
-  height: auto;
-  left: auto;
-  position: static;
-  right: auto;
-  top: auto;
-  width: auto;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 
 .escolaridade .formacao .inicio {
   -ms-grid-row: 3;
   -ms-grid-column: 2;
   grid-area: inicio;
-  text-align: right;
 }
 
 .escolaridade .formacao .inicio::before {
@@ -782,7 +775,16 @@ h6,
 }
 
 .escolaridade .formacao .inicio::after {
+  bottom: auto;
+  border: 0;
+  content: "a";
+  height: auto;
   left: auto;
+  padding: 0 5px;
+  position: static;
+  right: auto;
+  top: auto;
+  width: auto;
 }
 
 .escolaridade .formacao::before {
@@ -812,6 +814,9 @@ h6,
   .escolaridade .formacao {
     display: -ms-grid;
     display: grid;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
   .escolaridade .formacao .descricao {
     margin-bottom: 40px;
@@ -837,6 +842,9 @@ h6,
     right: 10px;
     top: -20px;
     width: 1em;
+  }
+  .escolaridade .formacao .inicio {
+    text-align: right;
   }
   .escolaridade .formacao .inicio::after {
     left: auto;

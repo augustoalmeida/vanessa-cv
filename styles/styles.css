@@ -557,6 +557,7 @@ h6,
   -ms-grid-columns: 200px auto;
       grid-template-columns: 200px auto;
   padding-left: 40px;
+  padding-bottom: 15px;
   position: relative;
 }
 
@@ -655,6 +656,7 @@ h6,
   .timeline {
     display: -ms-grid;
     display: grid;
+    padding-bottom: 0;
   }
   .timeline .ano {
     margin: 0 30px 0 0;

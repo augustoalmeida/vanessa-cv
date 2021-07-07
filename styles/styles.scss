@@ -1,69 +1,245 @@
-$background: #eedfde;
-$color: #d2527f;
-$gray: #dee2e6;
+:root {
+  --background: #eedfde;
+  --content: #fff;
+  --text: #333;
+  --primary: #d2527f;
+  --secondary: #dee2e6;
+  --avatar-size: 150px;
+  --pie-size: 56px;
+}
+
+@mixin tablet {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin tv {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
 
 html {
-  background-color: $background;
+  background-color: var(--background);
 }
 
 body {
-  background-color: $background;
+  background-color: var(--background);
+  color: var(--text);
   font-family: "Roboto", sans-serif;
 }
 
-.background {
-  background-color: #fff;
-  margin-bottom: 80px;
-  margin-top: 100px;
-  min-height: 98vh;
-  padding: 60px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 1rem;
 }
 
-h1,
-.h1,
-h2,
-.h2,
-h3,
-.h3,
-h4,
-.h4,
-h5,
-.h5,
-h6,
-.h6 {
-  font-weight: 900;
+p {
+  margin: 0 0 1rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 1.5rem;
+  li {
+    color: var(--primary);
+    margin-top: 1rem;
+    span {
+      color: var(--text);
+    }
+  }
+}
+
+header {
+  padding: 2rem 1rem 0.5rem;
+  #avatar {
+    grid-area: avatar;
+  }
+  #info {
+    grid-area: info;
+  }
+  #qrcode {
+    grid-area: qrcode;
+  }
+  #contatos {
+    grid-area: contatos;
+  }
+  @include tablet {
+    padding-top: 1rem;
+    display: grid;
+    grid-template-areas:
+      "avatar info qrcode"
+      ". contatos .";
+  }
+  @include desktop {
+    border-bottom: 1px solid var(--secondary);
+    grid-template-areas:
+      "avatar info qrcode"
+      ". contatos contatos";
+  }
+}
+
+main {
+  @include desktop {
+    display: grid;
+    grid-template-columns: 33.33% auto;
+    grid-template-areas: "side main";
+  }
+  .side-content {
+    grid-area: side;
+    section {
+      border-top: 1px solid var(--secondary);
+    }
+    @include tablet {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "habilidades habilidades"
+        "competencias linguas"
+        "cursos certificacoes";
+      #habilidades {
+        grid-area: habilidades;
+      }
+      #competencias {
+        grid-area: competencias;
+      }
+      #linguas {
+        grid-area: linguas;
+      }
+      #cursos {
+        grid-area: cursos;
+      }
+      #certificacoes {
+        grid-area: certificacoes;
+      }
+    }
+    @include desktop {
+      display: block;
+      section {
+        border: 0;
+      }
+    }
+  }
+  .main-content {
+    grid-area: main;
+    section {
+      border-top: 1px solid var(--secondary);
+    }
+    @include desktop {
+      border-left: 1px solid var(--secondary);
+      section {
+        border: 0;
+      }
+      #formacao {
+        border-top: 1px solid var(--secondary);
+      }
+    }
+  }
+}
+
+section {
+  padding: 1rem;
+}
+
+.background {
+  background-color: var(--content);
+  margin: 1rem;
+  @include desktop {
+    margin: 1rem auto;
+    max-width: 960px;
+  }
+  @include tv {
+    max-width: 1200px;
+  }
 }
 
 .avatar {
+  border: 1px solid var(--secondary);
   border-radius: 100%;
-  max-height: 25vh;
+  display: block;
+  height: var(--avatar-size);
+  margin: auto;
+  padding: 0.25rem;
+  width: var(--avatar-size);
+  img {
+    border-radius: 100%;
+    max-width: 100%;
+  }
+}
+
+.info {
+  padding: 1rem 0 0;
   text-align: center;
-  @media (min-width: 992px) {
-    max-height: none;
+  @include tablet {
+    text-align: left;
+    padding: 0 1.5rem;
   }
 }
 
 .qrcode {
-  max-width: 100%;
-}
-
-[class*="fa-"] {
-  color: $color;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  img {
+    max-width: 100%;
+  }
+  @include tablet {
+    img {
+      max-width: 100px;
+    }
+  }
 }
 
 .contatos {
+  padding: 0 1rem;
+  @include tablet {
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+  }
   a {
     color: inherit;
+    display: inline-block;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    .fas,
+    .fab {
+      color: var(--primary);
+    }
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+    &:hover {
+      span {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
 .destaque {
-  color: $color;
+  color: var(--primary);
   font-weight: 500;
+  p:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .habilidades {
-  columns: 2;
   list-style: none;
   padding-left: 0;
   text-align: center;
@@ -76,114 +252,85 @@ h6,
 
 .competencias {
   list-style: none;
-  padding-left: 0;
-  padding-right: 15px;
+  padding: 0;
   li {
-    margin-bottom: 8px;
-  }
-  .progress {
-    background-color: $gray;
-    border-radius: 0;
-    height: 0.5rem;
-    &-bar {
-      background-color: $color;
-    }
-  }
-}
-
-// progress circle
-
-$size: 3.5rem;
-
-.progress-circle {
-  background-color: $gray;
-  border-radius: 50%;
-  display: inline-block;
-  height: $size;
-  width: $size;
-  margin: 0 auto 0;
-  position: relative;
-
-  &:before {
-    background-color: $color;
-    border-radius: 50%;
-    content: "";
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-  }
-
-  &:after {
-    align-items: center;
-    background-color: #fff;
-    border-radius: 50%;
-    content: "";
-    display: flex;
-    font-size: 3rem;
-    justify-content: center;
-    position: absolute;
-    left: 0.5rem;
-    right: 0.5rem;
-    top: 0.5rem;
-    bottom: 0.5rem;
-    transition: transform 0.2s ease;
-  }
-}
-
-$step: 1;
-$loops: round(100 / $step);
-$increment: 360 / $loops;
-$half: round($loops / 2);
-
-@for $i from 0 through $loops {
-  .progress-circle[data-progress=#{'"'+$i * $step+'"'}]:before {
-    @if $i < $half {
-      $next-deg: 90deg + $increment * $i;
-      background-image: linear-gradient(90deg, $gray 50%, transparent 50%, transparent),
-        linear-gradient($next-deg, $color 50%, $gray 50%, $gray);
-    } @else {
-      $next-deg: -90deg + $increment * ($i - $half);
-      background-image: linear-gradient($next-deg, $color 50%, transparent 50%, transparent),
-        linear-gradient(270deg, $color 50%, $gray 50%, $gray);
+    &:not(:last-child) {
+      margin-bottom: 1rem;
     }
   }
 }
 
 .timeline {
-  display: block;
-  grid-template-areas:
-    "ano local"
-    "ano cargo"
-    "ano entregas"
-    "ano atividades";
-  grid-template-columns: 200px auto;
-  padding-left: 40px;
-  padding-bottom: 15px;
+  display: grid;
+  grid-template-areas: "ano" "local" "cargo" "entregas" "atividades";
+  padding: 0 0 0 2.5rem;
   position: relative;
+  // Linha
+  &::before {
+    content: "";
+    background-color: var(--primary);
+    bottom: 0;
+    height: 100%;
+    position: absolute;
+    left: 0.75rem;
+    top: 0;
+    width: 1px;
+  }
+  // Bola
+  &::after {
+    content: "";
+    background-color: var(--content);
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    height: 1.5em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.5em;
+  }
+  @include desktop {
+    padding-left: 0;
+    grid-template-columns: 10rem auto;
+    grid-template-areas:
+      "ano local"
+      "ano cargo"
+      "ano entregas"
+      "ano atividades";
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
   .ano {
     display: block;
     font-weight: 500;
     grid-area: ano;
-    margin: 0 0 15px 0;
+    margin: 0;
+    padding: 0.35rem 3.5rem 1rem 0;
     position: relative;
-    &::before {
-      background-color: $color;
-      bottom: 0;
-      height: 100%;
-      position: absolute;
-      right: 11px;
-      top: 0;
-      width: 2px;
-    }
-    &::after {
-      background-color: #fff;
-      border: 2px solid $color;
-      border-radius: 50%;
-      height: 1.5em;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 1.5em;
+    @include desktop {
+      text-align: right;
+      &::before {
+        content: "";
+        background-color: var(--primary);
+        bottom: 0;
+        height: 100%;
+        position: absolute;
+        right: 1.75rem;
+        top: 0;
+        width: 1px;
+      }
+      &::after {
+        content: "";
+        background-color: var(--content);
+        border: 1px solid var(--primary);
+        border-radius: 50%;
+        height: 1.5em;
+        position: absolute;
+        right: 1rem;
+        top: 0;
+        width: 1.5em;
+      }
     }
   }
   .local {
@@ -191,7 +338,7 @@ $half: round($loops / 2);
     font-weight: 500;
     grid-area: local;
     line-height: 1;
-    margin-bottom: 0.25rem;
+    margin: 0.125rem 0 0.25rem;
   }
   .cargo {
     grid-area: cargo;
@@ -200,185 +347,231 @@ $half: round($loops / 2);
     grid-area: entregas;
     font-size: 120%;
     font-weight: 500;
+    margin-bottom: 0;
   }
-  .atividades {
+  ul {
     grid-area: atividades;
-    list-style: none;
-    padding-left: 0;
     li {
       margin-bottom: 0.5rem;
-    }
-  }
-  &::before {
-    background-color: $color;
-    bottom: 0;
-    content: "";
-    height: 100%;
-    left: 11px;
-    position: absolute;
-    top: 0;
-    width: 2px;
-  }
-  &::after {
-    background-color: #fff;
-    border: 2px solid $color;
-    border-radius: 50%;
-    content: "";
-    height: 1.5em;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1.5em;
-  }
-  // versão tablet
-  @media (min-width: 576px) {
-    display: grid;
-    padding-bottom: 0;
-    .ano {
-      margin: 0 30px 0 0;
-      padding-right: 50px;
-      text-align: right;
-      &::before,
-      &::after {
-        content: "";
+      &:last-child {
+        margin-bottom: 2rem;
       }
-    }
-    &::before,
-    &::after {
-      content: none;
     }
   }
 }
 
 .escolaridade {
-  display: flex;
-  justify-content: space-between;
-  flex-flow: column;
+  @include tv {
+    display: flex;
+  }
   .formacao {
     display: flex;
-    flex: 1;
     flex-wrap: wrap;
-    grid-template-areas:
-      "titulo titulo"
-      "descricao descricao"
-      "fim inicio";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr auto;
-    padding-right: 30px;
     position: relative;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+    @include tv {
+      display: grid;
+      justify-content: space-between;
+      grid-template-areas:
+        "titulo titulo"
+        "descricao descricao"
+        "fim inicio";
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      &:not(:last-child) {
+        margin-bottom: 0;
+      }
+      &#mba {
+        width: 30%;
+      }
+      &#pos {
+        width: 25%;
+      }
+      &#graduacao {
+        width: 45%;
+      }
+      // Barra cinza
+      &::before {
+        content: "";
+        background-color: var(--secondary);
+        bottom: 3.5rem;
+        height: 1px;
+        left: 0;
+        position: absolute;
+        right: 0;
+        width: 100%;
+      }
+    }
     .titulo {
-      color: $color;
+      color: var(--primary);
       font-size: 1.5rem;
       font-weight: 600;
       grid-area: titulo;
-      margin-bottom: 0;
+      margin-bottom: 0.25rem;
       width: 100%;
     }
     .descricao {
       grid-area: descricao;
-      margin-bottom: 0;
+      margin-bottom: 0.25rem;
       width: 100%;
+      @include tv {
+        flex: 1;
+        margin-bottom: 2rem;
+        min-height: 4rem;
+        padding-right: 1rem;
+      }
     }
     .fim,
     .inicio {
       display: inline-block;
+      margin-bottom: 0;
       position: relative;
-      &::before {
-        background-color: $color;
-        height: 2px;
-        left: 15px;
-        position: absolute;
-        right: 0;
-        top: -14px;
-        width: 90%;
-      }
-      &::after {
-        background-color: #fff;
-        border: 2px solid $color;
-        border-radius: 50%;
-        bottom: 100%;
-        height: 1em;
-        left: 10px;
-        position: absolute;
-        right: 10px;
-        top: -20px;
-        width: 1em;
-      }
-    }
-    .fim {
-      grid-area: fim;
-      order: 1;
-    }
-    .inicio {
-      grid-area: inicio;
-      &::before {
-        left: 0;
-        right: 15px;
-      }
-      &::after {
-        bottom: auto;
-        border: 0;
-        content: "a";
-        height: auto;
-        left: auto;
-        padding: 0 5px;
-        position: static;
-        right: auto;
-        top: auto;
-        width: auto;
-      }
-    }
-    &::before {
-      background-color: currentColor;
-      bottom: 52px;
-      height: 1px;
-      left: 0;
-      position: absolute;
-      right: 0;
-      width: 100%;
-    }
-    &:last-child {
-      flex: 1.25;
-      padding-right: 0;
-    }
-  }
-  @media (min-width: 576px) {
-    flex-flow: row;
-    .formacao {
-      display: grid;
-      justify-content: space-between;
-      .descricao {
-        margin-bottom: 40px;
-      }
-      .inicio,
-      .fim {
+      @include tv {
         display: block;
+        // Linha
         &::before {
           content: "";
+          background-color: var(--primary);
+          height: 2px;
+          padding: 0;
+          position: absolute;
+          top: -2.5rem;
+          width: 100%;
         }
+        // Bola
         &::after {
           content: "";
-          background-color: #fff;
-          border: 2px solid $color;
+          background-color: var(--content);
+          border: 2px solid var(--primary);
           border-radius: 50%;
           bottom: 100%;
           height: 1em;
-          left: 10px;
           position: absolute;
-          right: 10px;
-          top: -20px;
+          top: -3rem;
           width: 1em;
         }
       }
-      .inicio {
-        text-align: right;
-        &::after {
-          left: auto;
-        }
-      }
+    }
+    .fim {
+      order: 1;
+      grid-area: fim;
       &::before {
-        content: "";
+        left: 0.5rem;
+      }
+      &::after {
+        left: 0.5rem;
       }
     }
+    .inicio {
+      grid-area: inicio;
+      &::after {
+        content: "a";
+        margin: 0 0.25rem;
+      }
+      @include tv {
+        padding-right: 1.5rem;
+        text-align: right;
+        &::before {
+          right: 3rem;
+        }
+        &::after {
+          content: "";
+          right: 1.75rem;
+        }
+      }
+    }
+  }
+}
+
+.grid-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  @include tablet {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @include desktop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pie-chart {
+  margin: 0 0 1rem;
+  position: relative;
+  text-align: center;
+  figcaption {
+    margin-top: 0.5rem;
+  }
+  .chart {
+    border-radius: 50%;
+    height: var(--pie-size);
+    margin: auto;
+    width: var(--pie-size);
+  }
+  .mask {
+    background: var(--content);
+    border-radius: 50%;
+    height: var(--pie-size);
+    width: var(--pie-size);
+    margin: calc(var(--pie-size) * -1) auto 0;
+    transform: scale(0.7);
+  }
+  &#agilidade {
+    .chart {
+      background: conic-gradient(
+        var(--primary) 0,
+        var(--primary) 95%,
+        var(--secondary) 0,
+        var(--secondary) 100%
+      );
+    }
+  }
+  &#comunicacao {
+    .chart {
+      background: conic-gradient(
+        var(--primary) 0,
+        var(--primary) 80%,
+        var(--secondary) 0,
+        var(--secondary) 100%
+      );
+    }
+  }
+  &#criatividade {
+    .chart {
+      background: conic-gradient(
+        var(--primary) 0,
+        var(--primary) 85%,
+        var(--secondary) 0,
+        var(--secondary) 100%
+      );
+    }
+  }
+  &#escrita {
+    .chart {
+      background: conic-gradient(
+        var(--primary) 0,
+        var(--primary) 85%,
+        var(--secondary) 0,
+        var(--secondary) 100%
+      );
+    }
+  }
+}
+
+.progress-charts {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.progress {
+  background-color: var(--secondary);
+  border-radius: 0;
+  height: 0.5rem;
+  margin-bottom: 0.25rem;
+  &-bar {
+    background-color: var(--primary);
+    height: 100%;
   }
 }

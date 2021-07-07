@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig",
+        "oderwat.indent-rainbow",
+        "ritwickdey.live-sass",
+        "ritwickdey.liveserver",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        "usernamehw.errorlens",
+        "coenraads.bracket-pair-colorizer-2",
+        "kisstkondoros.vscode-codemetrics",
+        "naumovs.color-highlight",
+        "bierner.color-info",
+        "gencer.html-slim-scss-css-class-completion",
+        "mrmlnc.vscode-scss"
+    ]
+}

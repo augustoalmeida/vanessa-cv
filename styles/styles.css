@@ -5,6 +5,9 @@
   --primary: #d2527f;
   --secondary: #dee2e6;
   --avatar-size: 150px;
+  --avatar-print: 100px;
+  --qrcode-size: 100%;
+  --qrcode-print: 100px;
   --pie-size: 56px;
 }
 
@@ -54,28 +57,32 @@ header {
   padding: 2rem 1rem 0.5rem;
 }
 
-header #avatar {
-  grid-area: avatar;
-}
-
-header #info {
-  grid-area: info;
-}
-
-header #qrcode {
-  grid-area: qrcode;
-}
-
-header #contatos {
-  grid-area: contatos;
-}
-
 @media (min-width: 576px) {
   header {
     padding-top: 1rem;
     display: -ms-grid;
     display: grid;
         grid-template-areas: "avatar info qrcode" ". contatos .";
+  }
+  header #avatar {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: avatar;
+  }
+  header #info {
+    -ms-grid-row: 1;
+    -ms-grid-column: 2;
+    grid-area: info;
+  }
+  header #qrcode {
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+    grid-area: qrcode;
+  }
+  header #contatos {
+    -ms-grid-row: 2;
+    -ms-grid-column: 2;
+    grid-area: contatos;
   }
 }
 
@@ -86,13 +93,13 @@ header #contatos {
   }
 }
 
-@media (min-width: 992px) {
-  main {
+@media print {
+  header {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 33.33% auto;
-        grid-template-columns: 33.33% auto;
-        grid-template-areas: "side main";
+    -ms-grid-columns: auto 1fr;
+        grid-template-columns: auto 1fr;
+        grid-template-areas: "avatar info" "qrcode contatos";
   }
 }
 
@@ -108,9 +115,7 @@ main .side-content section {
   main .side-content {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 1fr;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: "habilidades habilidades" "competencias linguas" "cursos certificacoes";
+        grid-template-areas: "habilidades habilidades" "competencias linguas" "cursos certificacoes" "cursos atividades";
   }
   main .side-content #habilidades {
     -ms-grid-row: 1;
@@ -130,6 +135,7 @@ main .side-content section {
   }
   main .side-content #cursos {
     -ms-grid-row: 3;
+    -ms-grid-row-span: 2;
     -ms-grid-column: 1;
     grid-area: cursos;
   }
@@ -138,14 +144,27 @@ main .side-content section {
     -ms-grid-column: 2;
     grid-area: certificacoes;
   }
+  main .side-content #atividades {
+    -ms-grid-row: 5;
+    -ms-grid-column: 1;
+    grid-area: atividades;
+  }
 }
 
 @media (min-width: 992px) {
   main .side-content {
-    display: block;
+        grid-template-areas: "habilidades competencias linguas" "cursos certificacoes atividades";
   }
   main .side-content section {
     border: 0;
+  }
+}
+
+@media print {
+  main .side-content {
+    display: -ms-grid;
+    display: grid;
+        grid-template-areas: "habilidades competencias linguas" "cursos certificacoes atividades";
   }
 }
 
@@ -201,6 +220,12 @@ section {
   width: var(--avatar-size);
 }
 
+@media print {
+  .avatar {
+    --avatar-size: var(--avatar-print);
+  }
+}
+
 .avatar img {
   border-radius: 100%;
   max-width: 100%;
@@ -218,6 +243,13 @@ section {
   }
 }
 
+@media print {
+  .info {
+    padding-left: 2rem;
+    text-align: left;
+  }
+}
+
 .qrcode {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -225,16 +257,23 @@ section {
   -ms-grid-column-align: center;
       justify-self: center;
   text-align: center;
+  width: var(--qrcode-size);
+}
+
+@media (min-width: 576px) {
+  .qrcode {
+    --qrcode-size: var(--qrcode-print);
+  }
+}
+
+@media print {
+  .qrcode {
+    --qrcode-size: var(--qrcode-print);
+  }
 }
 
 .qrcode img {
   max-width: 100%;
-}
-
-@media (min-width: 576px) {
-  .qrcode img {
-    max-width: 100px;
-  }
 }
 
 .contatos {
@@ -266,6 +305,15 @@ section {
 
 .contatos a:hover span {
   text-decoration: underline;
+}
+
+@media print {
+  .contatos {
+    padding-left: 2rem;
+  }
+  .contatos a {
+    display: block;
+  }
 }
 
 .destaque {
@@ -307,7 +355,7 @@ section {
   display: -ms-grid;
   display: grid;
       grid-template-areas: "ano" "local" "cargo" "entregas" "atividades";
-  padding: 0 0 0 2.5rem;
+  padding: 0 0 1.5rem 2.5rem;
   position: relative;
 }
 
@@ -334,18 +382,6 @@ section {
   width: 1.5em;
 }
 
-@media (min-width: 992px) {
-  .timeline {
-    padding-left: 0;
-    -ms-grid-columns: 10rem auto;
-        grid-template-columns: 10rem auto;
-        grid-template-areas: "ano local" "ano cargo" "ano entregas" "ano atividades";
-  }
-  .timeline::before, .timeline::after {
-    content: none;
-  }
-}
-
 .timeline .ano {
   display: block;
   font-weight: 500;
@@ -355,33 +391,6 @@ section {
   margin: 0;
   padding: 0.35rem 3.5rem 1rem 0;
   position: relative;
-}
-
-@media (min-width: 992px) {
-  .timeline .ano {
-    text-align: right;
-  }
-  .timeline .ano::before {
-    content: "";
-    background-color: var(--primary);
-    bottom: 0;
-    height: 100%;
-    position: absolute;
-    right: 1.75rem;
-    top: 0;
-    width: 1px;
-  }
-  .timeline .ano::after {
-    content: "";
-    background-color: var(--content);
-    border: 1px solid var(--primary);
-    border-radius: 50%;
-    height: 1.5em;
-    position: absolute;
-    right: 1rem;
-    top: 0;
-    width: 1.5em;
-  }
 }
 
 .timeline .local {
@@ -419,15 +428,55 @@ section {
   margin-bottom: 0.5rem;
 }
 
-.timeline ul li:last-child {
-  margin-bottom: 2rem;
+@media (min-width: 992px) {
+  .timeline {
+    padding-left: 0;
+    padding-bottom: 0;
+    -ms-grid-columns: 10rem auto;
+        grid-template-columns: 10rem auto;
+        grid-template-areas: "ano local" "ano cargo" "ano entregas" "ano atividades";
+  }
+  .timeline::before, .timeline::after {
+    content: none;
+  }
+  .timeline .ano {
+    padding-bottom: 3rem;
+    text-align: right;
+  }
+  .timeline .ano::before {
+    content: "";
+    background-color: var(--primary);
+    bottom: 0;
+    height: 100%;
+    position: absolute;
+    right: 1.75rem;
+    top: 0;
+    width: 1px;
+  }
+  .timeline .ano::after {
+    content: "";
+    background-color: var(--content);
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    height: 1.5em;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    width: 1.5em;
+  }
 }
 
-@media (min-width: 1280px) {
-  .escolaridade {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+@media print {
+  .timeline {
+    display: block;
+    margin: 1rem 0 0;
+    padding-bottom: 0;
+  }
+  .timeline .ano {
+    padding-bottom: 0;
+  }
+  .timeline .ano::before, .timeline .ano::after {
+    content: none;
   }
 }
 
@@ -444,7 +493,58 @@ section {
   margin-bottom: 1rem;
 }
 
-@media (min-width: 1280px) {
+.escolaridade .formacao .titulo {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  grid-area: titulo;
+  margin-bottom: 0.25rem;
+  width: 100%;
+}
+
+.escolaridade .formacao .descricao {
+  grid-area: descricao;
+  margin-bottom: 0.25rem;
+  width: 100%;
+}
+
+.escolaridade .formacao .fim,
+.escolaridade .formacao .inicio {
+  display: inline-block;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.escolaridade .formacao .fim {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  grid-area: fim;
+}
+
+.escolaridade .formacao .fim::before {
+  left: 0.5rem;
+}
+
+.escolaridade .formacao .fim::after {
+  left: 0.5rem;
+}
+
+.escolaridade .formacao .inicio {
+  grid-area: inicio;
+}
+
+.escolaridade .formacao .inicio::after {
+  content: "a";
+  margin: 0 0.25rem;
+}
+
+@media (min-width: 992px) {
+  .escolaridade {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
   .escolaridade .formacao {
     display: -ms-grid;
     display: grid;
@@ -479,24 +579,6 @@ section {
     right: 0;
     width: 100%;
   }
-}
-
-.escolaridade .formacao .titulo {
-  color: var(--primary);
-  font-size: 1.5rem;
-  font-weight: 600;
-  grid-area: titulo;
-  margin-bottom: 0.25rem;
-  width: 100%;
-}
-
-.escolaridade .formacao .descricao {
-  grid-area: descricao;
-  margin-bottom: 0.25rem;
-  width: 100%;
-}
-
-@media (min-width: 1280px) {
   .escolaridade .formacao .descricao {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -505,16 +587,6 @@ section {
     min-height: 4rem;
     padding-right: 1rem;
   }
-}
-
-.escolaridade .formacao .fim,
-.escolaridade .formacao .inicio {
-  display: inline-block;
-  margin-bottom: 0;
-  position: relative;
-}
-
-@media (min-width: 1280px) {
   .escolaridade .formacao .fim,
   .escolaridade .formacao .inicio {
     display: block;
@@ -541,33 +613,6 @@ section {
     top: -3rem;
     width: 1em;
   }
-}
-
-.escolaridade .formacao .fim {
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
-  grid-area: fim;
-}
-
-.escolaridade .formacao .fim::before {
-  left: 0.5rem;
-}
-
-.escolaridade .formacao .fim::after {
-  left: 0.5rem;
-}
-
-.escolaridade .formacao .inicio {
-  grid-area: inicio;
-}
-
-.escolaridade .formacao .inicio::after {
-  content: "a";
-  margin: 0 0.25rem;
-}
-
-@media (min-width: 1280px) {
   .escolaridade .formacao .inicio {
     padding-right: 1.5rem;
     text-align: right;
@@ -581,7 +626,7 @@ section {
   }
 }
 
-.grid-charts {
+.pie-charts {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[2];
@@ -589,16 +634,23 @@ section {
 }
 
 @media (min-width: 576px) {
-  .grid-charts {
+  .pie-charts {
     -ms-grid-columns: (1fr)[4];
         grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 992px) {
-  .grid-charts {
+  .pie-charts {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media print {
+  .pie-charts {
+    display: block;
+    margin: 1rem 0 0;
   }
 }
 
@@ -629,6 +681,21 @@ section {
           transform: scale(0.7);
 }
 
+@media print {
+  .pie-chart {
+    text-align: left;
+    margin: 1rem 0 0;
+  }
+  .pie-chart figcaption {
+    display: block;
+    margin: 1rem 0 0;
+  }
+  .pie-chart .chart,
+  .pie-chart .mask {
+    display: none;
+  }
+}
+
 .pie-chart#agilidade .chart {
   background: conic-gradient(var(--primary) 0, var(--primary) 95%, var(--secondary) 0, var(--secondary) 100%);
 }
@@ -651,15 +718,46 @@ section {
   padding: 0;
 }
 
-.progress {
+@media print {
+  .progress-charts {
+    display: block;
+    margin: 1rem 0 0;
+  }
+  .progress-charts li {
+    display: block;
+    margin: 1rem 0 0;
+  }
+}
+
+.progress-chart {
   background-color: var(--secondary);
   border-radius: 0;
   height: 0.5rem;
   margin-bottom: 0.25rem;
 }
 
-.progress-bar {
+.progress-chart .progress-bar {
   background-color: var(--primary);
   height: 100%;
+}
+
+@media print {
+  .progress-chart {
+    display: none;
+  }
+}
+
+@media print {
+  .sr-only {
+    display: inline;
+    font-weight: bold;
+    height: auto;
+    width: auto;
+    margin: 0 0 0 0.25rem;
+    position: static;
+    clip: auto;
+    padding: 0;
+    overflow: visible;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

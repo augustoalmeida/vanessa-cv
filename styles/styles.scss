@@ -5,6 +5,9 @@
   --primary: #d2527f;
   --secondary: #dee2e6;
   --avatar-size: 150px;
+  --avatar-print: 100px;
+  --qrcode-size: 100%;
+  --qrcode-print: 100px;
   --pie-size: 56px;
 }
 
@@ -22,6 +25,12 @@
 
 @mixin tv {
   @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin print {
+  @media print {
     @content;
   }
 }
@@ -67,24 +76,24 @@ ul {
 
 header {
   padding: 2rem 1rem 0.5rem;
-  #avatar {
-    grid-area: avatar;
-  }
-  #info {
-    grid-area: info;
-  }
-  #qrcode {
-    grid-area: qrcode;
-  }
-  #contatos {
-    grid-area: contatos;
-  }
   @include tablet {
     padding-top: 1rem;
     display: grid;
     grid-template-areas:
       "avatar info qrcode"
       ". contatos .";
+    #avatar {
+      grid-area: avatar;
+    }
+    #info {
+      grid-area: info;
+    }
+    #qrcode {
+      grid-area: qrcode;
+    }
+    #contatos {
+      grid-area: contatos;
+    }
   }
   @include desktop {
     border-bottom: 1px solid var(--secondary);
@@ -92,14 +101,16 @@ header {
       "avatar info qrcode"
       ". contatos contatos";
   }
+  @include print {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "avatar info"
+      "qrcode contatos";
+  }
 }
 
 main {
-  @include desktop {
-    display: grid;
-    grid-template-columns: 33.33% auto;
-    grid-template-areas: "side main";
-  }
   .side-content {
     grid-area: side;
     section {
@@ -107,11 +118,11 @@ main {
     }
     @include tablet {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       grid-template-areas:
         "habilidades habilidades"
         "competencias linguas"
-        "cursos certificacoes";
+        "cursos certificacoes"
+        "cursos atividades";
       #habilidades {
         grid-area: habilidades;
       }
@@ -127,12 +138,23 @@ main {
       #certificacoes {
         grid-area: certificacoes;
       }
+      #atividades {
+        grid-area: atividades;
+      }
     }
     @include desktop {
-      display: block;
+      grid-template-areas:
+        "habilidades competencias linguas"
+        "cursos certificacoes atividades";
       section {
         border: 0;
       }
+    }
+    @include print {
+      display: grid;
+      grid-template-areas:
+        "habilidades competencias linguas"
+        "cursos certificacoes atividades";
     }
   }
   .main-content {
@@ -176,6 +198,9 @@ section {
   margin: auto;
   padding: 0.25rem;
   width: var(--avatar-size);
+  @include print {
+    --avatar-size: var(--avatar-print);
+  }
   img {
     border-radius: 100%;
     max-width: 100%;
@@ -189,19 +214,25 @@ section {
     text-align: left;
     padding: 0 1.5rem;
   }
+  @include print {
+    padding-left: 2rem;
+    text-align: left;
+  }
 }
 
 .qrcode {
   align-self: center;
   justify-self: center;
   text-align: center;
+  width: var(--qrcode-size);
+  @include tablet {
+    --qrcode-size: var(--qrcode-print);
+  }
+  @include print {
+    --qrcode-size: var(--qrcode-print);
+  }
   img {
     max-width: 100%;
-  }
-  @include tablet {
-    img {
-      max-width: 100px;
-    }
   }
 }
 
@@ -227,6 +258,12 @@ section {
       span {
         text-decoration: underline;
       }
+    }
+  }
+  @include print {
+    padding-left: 2rem;
+    a {
+      display: block;
     }
   }
 }
@@ -263,7 +300,7 @@ section {
 .timeline {
   display: grid;
   grid-template-areas: "ano" "local" "cargo" "entregas" "atividades";
-  padding: 0 0 0 2.5rem;
+  padding: 0 0 1.5rem 2.5rem;
   position: relative;
   // Linha
   &::before {
@@ -288,19 +325,6 @@ section {
     top: 0;
     width: 1.5em;
   }
-  @include desktop {
-    padding-left: 0;
-    grid-template-columns: 10rem auto;
-    grid-template-areas:
-      "ano local"
-      "ano cargo"
-      "ano entregas"
-      "ano atividades";
-    &::before,
-    &::after {
-      content: none;
-    }
-  }
   .ano {
     display: block;
     font-weight: 500;
@@ -308,30 +332,6 @@ section {
     margin: 0;
     padding: 0.35rem 3.5rem 1rem 0;
     position: relative;
-    @include desktop {
-      text-align: right;
-      &::before {
-        content: "";
-        background-color: var(--primary);
-        bottom: 0;
-        height: 100%;
-        position: absolute;
-        right: 1.75rem;
-        top: 0;
-        width: 1px;
-      }
-      &::after {
-        content: "";
-        background-color: var(--content);
-        border: 1px solid var(--primary);
-        border-radius: 50%;
-        height: 1.5em;
-        position: absolute;
-        right: 1rem;
-        top: 0;
-        width: 1.5em;
-      }
-    }
   }
   .local {
     font-size: 1.5rem;
@@ -353,17 +353,64 @@ section {
     grid-area: atividades;
     li {
       margin-bottom: 0.5rem;
-      &:last-child {
-        margin-bottom: 2rem;
+    }
+  }
+  @include desktop {
+    padding-left: 0;
+    padding-bottom: 0;
+    grid-template-columns: 10rem auto;
+    grid-template-areas:
+      "ano local"
+      "ano cargo"
+      "ano entregas"
+      "ano atividades";
+    &::before,
+    &::after {
+      content: none;
+    }
+    .ano {
+      padding-bottom: 3rem;
+      text-align: right;
+      // Linha
+      &::before {
+        content: "";
+        background-color: var(--primary);
+        bottom: 0;
+        height: 100%;
+        position: absolute;
+        right: 1.75rem;
+        top: 0;
+        width: 1px;
+      }
+      // Bola
+      &::after {
+        content: "";
+        background-color: var(--content);
+        border: 1px solid var(--primary);
+        border-radius: 50%;
+        height: 1.5em;
+        position: absolute;
+        right: 1rem;
+        top: 0;
+        width: 1.5em;
+      }
+    }
+  }
+  @include print {
+    display: block;
+    margin: 1rem 0 0;
+    padding-bottom: 0;
+    .ano {
+      padding-bottom: 0;
+      &::before,
+      &::after {
+        content: none;
       }
     }
   }
 }
 
 .escolaridade {
-  @include tv {
-    display: flex;
-  }
   .formacao {
     display: flex;
     flex-wrap: wrap;
@@ -371,7 +418,46 @@ section {
     &:not(:last-child) {
       margin-bottom: 1rem;
     }
-    @include tv {
+    .titulo {
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: 600;
+      grid-area: titulo;
+      margin-bottom: 0.25rem;
+      width: 100%;
+    }
+    .descricao {
+      grid-area: descricao;
+      margin-bottom: 0.25rem;
+      width: 100%;
+    }
+    .fim,
+    .inicio {
+      display: inline-block;
+      margin-bottom: 0;
+      position: relative;
+    }
+    .fim {
+      order: 1;
+      grid-area: fim;
+      &::before {
+        left: 0.5rem;
+      }
+      &::after {
+        left: 0.5rem;
+      }
+    }
+    .inicio {
+      grid-area: inicio;
+      &::after {
+        content: "a";
+        margin: 0 0.25rem;
+      }
+    }
+  }
+  @include desktop {
+    display: flex;
+    .formacao {
       display: grid;
       justify-content: space-between;
       grid-template-areas:
@@ -403,32 +489,14 @@ section {
         right: 0;
         width: 100%;
       }
-    }
-    .titulo {
-      color: var(--primary);
-      font-size: 1.5rem;
-      font-weight: 600;
-      grid-area: titulo;
-      margin-bottom: 0.25rem;
-      width: 100%;
-    }
-    .descricao {
-      grid-area: descricao;
-      margin-bottom: 0.25rem;
-      width: 100%;
-      @include tv {
+      .descricao {
         flex: 1;
         margin-bottom: 2rem;
         min-height: 4rem;
         padding-right: 1rem;
       }
-    }
-    .fim,
-    .inicio {
-      display: inline-block;
-      margin-bottom: 0;
-      position: relative;
-      @include tv {
+      .fim,
+      .inicio {
         display: block;
         // Linha
         &::before {
@@ -453,24 +521,7 @@ section {
           width: 1em;
         }
       }
-    }
-    .fim {
-      order: 1;
-      grid-area: fim;
-      &::before {
-        left: 0.5rem;
-      }
-      &::after {
-        left: 0.5rem;
-      }
-    }
-    .inicio {
-      grid-area: inicio;
-      &::after {
-        content: "a";
-        margin: 0 0.25rem;
-      }
-      @include tv {
+      .inicio {
         padding-right: 1.5rem;
         text-align: right;
         &::before {
@@ -485,7 +536,7 @@ section {
   }
 }
 
-.grid-charts {
+.pie-charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   @include tablet {
@@ -493,6 +544,10 @@ section {
   }
   @include desktop {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @include print {
+    display: block;
+    margin: 1rem 0 0;
   }
 }
 
@@ -516,6 +571,18 @@ section {
     width: var(--pie-size);
     margin: calc(var(--pie-size) * -1) auto 0;
     transform: scale(0.7);
+  }
+  @include print {
+    text-align: left;
+    margin: 1rem 0 0;
+    figcaption {
+      display: block;
+      margin: 1rem 0 0;
+    }
+    .chart,
+    .mask {
+      display: none;
+    }
   }
   &#agilidade {
     .chart {
@@ -563,15 +630,40 @@ section {
   list-style: none;
   margin: 1rem 0 0;
   padding: 0;
+  @include print {
+    display: block;
+    margin: 1rem 0 0;
+    li {
+      display: block;
+      margin: 1rem 0 0;
+    }
+  }
 }
 
-.progress {
+.progress-chart {
   background-color: var(--secondary);
   border-radius: 0;
   height: 0.5rem;
   margin-bottom: 0.25rem;
-  &-bar {
+  .progress-bar {
     background-color: var(--primary);
     height: 100%;
+  }
+  @include print {
+    display: none;
+  }
+}
+
+@include print {
+  .sr-only {
+    display: inline;
+    font-weight: bold;
+    height: auto;
+    width: auto;
+    margin: 0 0 0 0.25rem;
+    position: static;
+    clip: auto;
+    padding: 0;
+    overflow: visible;
   }
 }

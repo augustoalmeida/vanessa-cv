@@ -154,7 +154,9 @@ main {
       display: grid;
       grid-template-areas:
         "habilidades competencias linguas"
-        "cursos certificacoes atividades";
+        "cursos cursos cursos"
+        "certificacoes certificacoes certificacoes"
+        "atividades atividades atividades";
     }
   }
   .main-content {
@@ -351,6 +353,7 @@ section {
   }
   ul {
     grid-area: atividades;
+    margin-bottom: 2rem;
     li {
       margin-bottom: 0.5rem;
     }
@@ -400,6 +403,11 @@ section {
     display: block;
     margin: 1rem 0 0;
     padding-bottom: 0;
+    padding-left: 0;
+    &::before,
+    &::after {
+      content: none;
+    }
     .ano {
       padding-bottom: 0;
       &::before,

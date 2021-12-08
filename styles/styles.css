@@ -164,7 +164,7 @@ main .side-content section {
   main .side-content {
     display: -ms-grid;
     display: grid;
-        grid-template-areas: "habilidades competencias linguas" "cursos certificacoes atividades";
+        grid-template-areas: "habilidades competencias linguas" "cursos cursos cursos" "certificacoes certificacoes certificacoes" "atividades atividades atividades";
   }
 }
 
@@ -422,6 +422,7 @@ section {
   -ms-grid-row: 5;
   -ms-grid-column: 1;
   grid-area: atividades;
+  margin-bottom: 2rem;
 }
 
 .timeline ul li {
@@ -471,6 +472,10 @@ section {
     display: block;
     margin: 1rem 0 0;
     padding-bottom: 0;
+    padding-left: 0;
+  }
+  .timeline::before, .timeline::after {
+    content: none;
   }
   .timeline .ano {
     padding-bottom: 0;

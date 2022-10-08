@@ -1,0 +1,26 @@
+{
+  "name": "vanessa-cv",
+  "version": "1.0.0",
+  "description": "Página de Currículo da Vanessa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "resize": "sharp -i raw/IMG_8851.jpg -o images/ resize 1400"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustoalmeida/vanessa-cv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augustoalmeida/vanessa-cv/issues"
+  },
+  "homepage": "https://github.com/augustoalmeida/vanessa-cv#readme",
+  "dependencies": {
+    "imagemin-cli": "^7.0.0",
+    "imagemin-jpegoptim": "^8.0.0",
+    "sharp-cli": "^3.0.0"
+  }
+}

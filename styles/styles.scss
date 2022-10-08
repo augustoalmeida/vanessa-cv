@@ -1,3 +1,14 @@
+$background: #eedfde;
+$content: #fff;
+$text: #333;
+$primary: #d2527f;
+$secondary: #dee2e6;
+$avatar-size: 150px;
+$avatar-print: 100px;
+$qrcode-size: 100%;
+$qrcode-print: 100px;
+$pie-size: 56px;
+
 :root {
   --background: #eedfde;
   --content: #fff;
@@ -40,11 +51,19 @@
 }
 
 html {
-  background-color: var(--background);
+  background-color: transparentize($background, 0.4);
+  background-size: cover;
+  @include tablet {
+    background-image: 
+    linear-gradient(
+      transparentize($background, 0.4), transparentize($background, 0.4)
+    ),
+      url("../images/high-IMG_8851.jpg")
+    ;
+  }
 }
 
 body {
-  background-color: var(--background);
   color: var(--text);
   font-family: "Roboto", sans-serif;
 }
@@ -181,10 +200,11 @@ section {
 }
 
 .background {
-  background-color: var(--content);
+  background-color: transparentize($content, 0.20);
+  border-radius: 6px;
   margin: 1rem;
   @include desktop {
-    margin: 1rem auto;
+    margin: 4rem auto;
     max-width: 960px;
   }
   @include tv {

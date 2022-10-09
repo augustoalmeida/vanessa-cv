@@ -677,6 +677,38 @@ section {
     opacity: 0;
   }
 }
+@-webkit-keyframes slideDown {
+  from {
+    top: -66px;
+  }
+  to {
+    top: 0;
+  }
+}
+@keyframes slideDown {
+  from {
+    top: -66px;
+  }
+  to {
+    top: 0;
+  }
+}
+@-webkit-keyframes slideUp {
+  from {
+    top: 0;
+  }
+  to {
+    top: -66px;
+  }
+}
+@keyframes slideUp {
+  from {
+    top: 0;
+  }
+  to {
+    top: -66px;
+  }
+}
 .stickyHeader {
   background: #fff;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
@@ -686,6 +718,10 @@ section {
   left: 0;
   right: 0;
   top: 0;
+  -webkit-animation-duration: 150ms;
+          animation-duration: 150ms;
+  -webkit-animation-timing-function: ease;
+          animation-timing-function: ease;
 }
 .stickyHeader .background {
   align-items: center;
@@ -730,23 +766,15 @@ section {
 }
 .stickyHeader.show {
   display: flex;
-  -webkit-animation-name: show;
-          animation-name: show;
-  -webkit-animation-duration: 300ms;
-          animation-duration: 300ms;
-  -webkit-animation-timing-function: ease-in;
-          animation-timing-function: ease-in;
+  -webkit-animation-name: slideDown;
+          animation-name: slideDown;
   z-index: 1;
 }
 .stickyHeader.hide {
   display: flex;
   z-index: -1;
-  -webkit-animation-name: hide;
-          animation-name: hide;
-  -webkit-animation-duration: 150ms;
-          animation-duration: 150ms;
-  -webkit-animation-timing-function: ease-out;
-          animation-timing-function: ease-out;
+  -webkit-animation-name: slideUp;
+          animation-name: slideUp;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }/*# sourceMappingURL=styles.css.map */

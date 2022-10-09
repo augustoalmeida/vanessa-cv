@@ -709,6 +709,16 @@ section {
   to {opacity: 0;}
 }
 
+@keyframes slideDown {
+  from {top: -66px;}
+  to {top: 0;}
+}
+
+@keyframes slideUp {
+  from {top: 0;}
+  to {top: -66px;}
+}
+
 .stickyHeader {
   background: #fff;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
@@ -718,6 +728,8 @@ section {
   left: 0;
   right: 0;
   top: 0;
+  animation-duration: 150ms;
+  animation-timing-function: ease;
   .background {
     align-items: center;
     display: flex;
@@ -759,17 +771,13 @@ section {
   }
   &.show {
     display: flex;
-    animation-name: show;
-    animation-duration: 300ms;
-    animation-timing-function: ease-in;
+    animation-name: slideDown;
     z-index: 1;
   }
   &.hide {
     display: flex;
     z-index: -1;
-    animation-name: hide;
-    animation-duration: 150ms;
-    animation-timing-function: ease-out;
+    animation-name: slideUp;
     animation-fill-mode: forwards;
   }
 }

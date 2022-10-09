@@ -698,7 +698,7 @@ section {
     top: 0;
   }
   to {
-    top: -66px;
+    top: -80px;
   }
 }
 @keyframes slideUp {
@@ -706,7 +706,7 @@ section {
     top: 0;
   }
   to {
-    top: -66px;
+    top: -80px;
   }
 }
 .stickyHeader {

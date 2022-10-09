@@ -200,9 +200,12 @@ section {
 }
 
 .background {
-  background-color: transparentize($content, 0.20);
+  background-color: $content;
   border-radius: 6px;
   margin: 1rem;
+  @include tablet {
+    background-color: transparentize($content, 0.20);
+  }
   @include desktop {
     margin: 4rem auto;
     max-width: 960px;
@@ -693,5 +696,82 @@ section {
     clip: auto;
     padding: 0;
     overflow: visible;
+  }
+}
+
+@keyframes show {
+  from {opacity: 0;}
+  to {opacity: 100%;}
+}
+
+@keyframes hide {
+  from {opacity: 100%;}
+  to {opacity: 0;}
+}
+
+.cloneHeader {
+  background: #fff;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  display: none;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  .background {
+    align-items: center;
+    display: flex;
+    padding: 0 1rem;
+    width: 100%;
+    margin: 0;
+    @include tablet {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .avatar {
+    padding: 2px;
+    margin: 0;
+    max-width: 50px;
+    max-height: 50px;
+  }
+  .info {
+    padding-top: 0;
+    h1 {
+      margin: 0;
+      max-height: 32px;
+      overflow: hidden;
+    }
+    .destaque {
+      display: none;
+      p {
+        margin-bottom: 0;
+      }
+      ~ p {
+        display: none;
+      }
+    }
+  }
+  .qrcode {
+    margin-left: auto;
+    max-width: 50px;
+    max-height: 50px;
+  }
+  &.sticky {
+    &.show {
+      display: flex;
+      animation-name: show;
+      animation-duration: 300ms;
+      animation-timing-function: ease-in;
+      z-index: 1;
+    }
+    &.hide {
+      display: flex;
+      z-index: -1;
+      animation-name: hide;
+      animation-duration: 150ms;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+    }
   }
 }

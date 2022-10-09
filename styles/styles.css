@@ -677,7 +677,7 @@ section {
     opacity: 0;
   }
 }
-.cloneHeader {
+.stickyHeader {
   background: #fff;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
   display: none;
@@ -687,7 +687,7 @@ section {
   right: 0;
   top: 0;
 }
-.cloneHeader .background {
+.stickyHeader .background {
   align-items: center;
   display: flex;
   padding: 0 1rem;
@@ -695,40 +695,40 @@ section {
   margin: 0;
 }
 @media (min-width: 576px) {
-  .cloneHeader .background {
+  .stickyHeader .background {
     margin-left: auto;
     margin-right: auto;
   }
 }
-.cloneHeader .avatar {
+.stickyHeader .avatar {
   padding: 2px;
   margin: 0;
   max-width: 50px;
   max-height: 50px;
 }
-.cloneHeader .info {
+.stickyHeader .info {
   padding-top: 0;
 }
-.cloneHeader .info h1 {
+.stickyHeader .info h1 {
   margin: 0;
   max-height: 32px;
   overflow: hidden;
 }
-.cloneHeader .info .destaque {
+.stickyHeader .info .destaque {
   display: none;
 }
-.cloneHeader .info .destaque p {
+.stickyHeader .info .destaque p {
   margin-bottom: 0;
 }
-.cloneHeader .info .destaque ~ p {
+.stickyHeader .info .destaque ~ p {
   display: none;
 }
-.cloneHeader .qrcode {
+.stickyHeader .qrcode {
   margin-left: auto;
   max-width: 50px;
   max-height: 50px;
 }
-.cloneHeader.sticky.show {
+.stickyHeader.show {
   display: flex;
   -webkit-animation-name: show;
           animation-name: show;
@@ -738,7 +738,7 @@ section {
           animation-timing-function: ease-in;
   z-index: 1;
 }
-.cloneHeader.sticky.hide {
+.stickyHeader.hide {
   display: flex;
   z-index: -1;
   -webkit-animation-name: hide;
